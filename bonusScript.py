@@ -33,7 +33,7 @@ file_num = input('Enter payment file number: ')
 filename = os.path.join(data_dir,'payment' + str(file_num) + '.txt')
 f=open(filename,'r')
 
-bonusMessage = "Your bonus for performing my hit. Congratulations on your performance!"
+bonusMessage = "Your bonus for performing my hit. I decided the penalty for incorrect responses was too high and reduced it to be $.05. I also decided to add $.50 to the bonus because people on average earned less than I expected. These changes should be reflected in this total. Congratulations on your performance!"
 locationofCLT = "/Applications/aws-mturk-clt-1.3.1"
 
 rowNum = 0
