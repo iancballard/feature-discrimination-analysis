@@ -127,30 +127,42 @@ class ser_fd_features(util.MDP):
         if stage is None:
             return []
         elif stage == 0:
-            succ_prob_reward.append(((1,0,1),.5,0)) 
-            succ_prob_reward.append(((0,0,1),.5,0))
+            succ_prob_reward.append(((1,100,1),.5,0)) 
+            succ_prob_reward.append(((0,100,1),.5,0))
         elif stage == 1 and A == 1 and action == 'Dont': #A trial
-            succ_prob_reward.append(((1,1,2),1,0)) 
+            succ_prob_reward.append(((2,1,2),1,0)) 
         elif stage == 1 and A == 1 and action == 'Go': #A trial
-            succ_prob_reward.append(((1,1,2),1,-1))
+            succ_prob_reward.append(((2,1,2),1,-1))
         elif stage == 1 and A == 0 and action == 'Dont':
-            succ_prob_reward.append(((0,1,2),1,0)) 
+            succ_prob_reward.append(((3,1,2),1,0)) 
         elif stage == 1 and A == 0 and action == 'Go':
-            succ_prob_reward.append(((0,1,2),1,-1))
+            succ_prob_reward.append(((3,1,2),1,-1))
             
-        elif stage == 2 and A == 1 and action == 'Go': #A -> B+ and respond
-            succ_prob_reward.append(((None,None,None),.95,1)) 
-            succ_prob_reward.append(((None,None,None),.05,-1)) 
-        elif stage == 2 and A == 1 and action == 'Dont': #A -> B+ and dont respond
-            succ_prob_reward.append(((None,None,None),.95,-.1)) 
-            succ_prob_reward.append(((None,None,None),.05,.1)) 
-        elif stage == 2 and A == 0 and action == 'Go': #B- and respond
+        # elif stage == 2 and A == 2 and action == 'Go': #A -> B+ and respond
+        #     succ_prob_reward.append(((None,None,None),.95,1))
+        #     succ_prob_reward.append(((None,None,None),.05,-1))
+        # elif stage == 2 and A == 2 and action == 'Dont': #A -> B+ and dont respond
+        #     succ_prob_reward.append(((None,None,None),.95,-.1))
+        #     succ_prob_reward.append(((None,None,None),.05,.1))
+        # elif stage == 2 and A == 3 and action == 'Go': #B- and respond
+        #     succ_prob_reward.append(((None,None,None),.95,-1))
+        #     succ_prob_reward.append(((None,None,None),.05,1))
+        # elif stage == 2 and A == 3 and action == 'Dont': #B- and dont respond
+        #     succ_prob_reward.append(((None,None,None),.95,.1))
+        #     succ_prob_reward.append(((None,None,None),.05,-.1))
+
+        elif stage == 2 and A == 2 and action == 'Go': #A -> B+ and respond
             succ_prob_reward.append(((None,None,None),.95,-1)) 
             succ_prob_reward.append(((None,None,None),.05,1)) 
-        elif stage == 2 and A == 0 and action == 'Dont': #B- and dont respond
+        elif stage == 2 and A == 2 and action == 'Dont': #A -> B+ and dont respond
             succ_prob_reward.append(((None,None,None),.95,.1)) 
             succ_prob_reward.append(((None,None,None),.05,-.1)) 
-
+        elif stage == 2 and A == 3 and action == 'Go': #B- and respond
+            succ_prob_reward.append(((None,None,None),.95,1)) 
+            succ_prob_reward.append(((None,None,None),.05,-1)) 
+        elif stage == 2 and A == 3 and action == 'Dont': #B- and dont respond
+            succ_prob_reward.append(((None,None,None),.95,-.1)) 
+            succ_prob_reward.append(((None,None,None),.05,.1)) 
         return succ_prob_reward
 
     def discount(self):
@@ -187,24 +199,84 @@ class sim_fd_features(util.MDP):
         elif stage == 0:
             succ_prob_reward.append(((1,1,1),.5,0)) 
             succ_prob_reward.append(((0,1,1),.5,0))
-        elif stage == 1 and A == 1 and action == 'Go': #A -> B+ and respond
-            succ_prob_reward.append(((None,None,None),.95,1)) 
-            succ_prob_reward.append(((None,None,None),.05,-1)) 
+        elif stage == 1 and A == 1 and action == 'Go': #AB+ and respond
+            succ_prob_reward.append(((None,None,None),.95,1))
+            succ_prob_reward.append(((None,None,None),.05,-1))
         elif stage == 1 and A == 1 and action == 'Dont': #A -> B+ and dont respond
-            succ_prob_reward.append(((None,None,None),.95,-.1)) 
-            succ_prob_reward.append(((None,None,None),.05,.1)) 
+            succ_prob_reward.append(((None,None,None),.95,-.1))
+            succ_prob_reward.append(((None,None,None),.05,.1))
         elif stage == 1 and A == 0 and action == 'Go': #B- and respond
-            succ_prob_reward.append(((None,None,None),.95,-1)) 
-            succ_prob_reward.append(((None,None,None),.05,1)) 
+            succ_prob_reward.append(((None,None,None),.95,-1))
+            succ_prob_reward.append(((None,None,None),.05,1))
         elif stage == 1 and A == 0 and action == 'Dont': #B- and dont respond
-            succ_prob_reward.append(((None,None,None),.95,.1)) 
-            succ_prob_reward.append(((None,None,None),.05,-.1)) 
+            succ_prob_reward.append(((None,None,None),.95,.1))
+            succ_prob_reward.append(((None,None,None),.05,-.1))
+        # elif stage == 1 and A == 1 and action == 'Go': #AB+ and respond
+        #     succ_prob_reward.append(((None,None,None),.95,-1))
+        #     succ_prob_reward.append(((None,None,None),.05,1))
+        # elif stage == 1 and A == 1 and action == 'Dont': #A -> B+ and dont respond
+        #     succ_prob_reward.append(((None,None,None),.95,.1))
+        #     succ_prob_reward.append(((None,None,None),.05,-.1))
+        # elif stage == 1 and A == 0 and action == 'Go': #B- and respond
+        #     succ_prob_reward.append(((None,None,None),.95,1))
+        #     succ_prob_reward.append(((None,None,None),.05,-1))
+        # elif stage == 1 and A == 0 and action == 'Dont': #B- and dont respond
+        #     succ_prob_reward.append(((None,None,None),.95,-.1))
+        #     succ_prob_reward.append(((None,None,None),.05,.1))
 
         return succ_prob_reward
 
     def discount(self):
         return 1       
+
+class phase_2_blocking(util.MDP):
+    def __init__(self):
+        """
+        cardValues: array of card values for each card type
+        multiplicity: number of each card type
+        """
+
+    # Return the start state. First is a indicator of whether on upper or lower trajectory, second is step in the task
+    def startState(self):
+        return (0,0,0)  
+
+    # Return set of actions possible from |state|.
+    def actions(self, state):
+        A,B,stage = state
+        if stage == 0:
+            return ['Next']
+        else:
+            return ['Go', 'Dont']
+
+    # Return a list of (newState, prob, reward) tuples corresponding to edges
+    # coming out of |state|. 
+    def succAndProbReward(self, state, action):
+        succ_prob_reward = []
+        A,B,stage = state
         
+        if stage is None:
+            return []
+        elif stage == 0:
+            succ_prob_reward.append(((1,10,1),.5,0)) 
+            succ_prob_reward.append(((11,12,1),.5,0))
+        elif stage == 1 and A == 1 and action == 'Go': #AC+ and respond
+            succ_prob_reward.append(((None,None,None),.95,1)) 
+            succ_prob_reward.append(((None,None,None),.05,-1)) 
+        elif stage == 1 and A == 1 and action == 'Dont': #AC+ and dont respond
+            succ_prob_reward.append(((None,None,None),.95,-.1)) 
+            succ_prob_reward.append(((None,None,None),.05,.1)) 
+        elif stage == 1 and A == 11 and action == 'Go': #DE- and respond
+            succ_prob_reward.append(((None,None,None),.95,-1)) 
+            succ_prob_reward.append(((None,None,None),.05,1)) 
+        elif stage == 1 and A == 11 and action == 'Dont': #DE- and dont respond
+            succ_prob_reward.append(((None,None,None),.95,.1)) 
+            succ_prob_reward.append(((None,None,None),.05,-.1)) 
+
+        return succ_prob_reward
+        
+    def discount(self):
+        return 1   
+
 ############################################################
 # Performs Q-learning.  Read util.RLAlgorithm for more information.
 # actions: a function that takes a state and returns a list of actions.
@@ -213,12 +285,12 @@ class sim_fd_features(util.MDP):
 # explorationProb: the epsilon value indicating how frequently the policy
 # returns a random action
 class QLearningAlgorithm(util.RLAlgorithm):
-    def __init__(self, actions, discount, featureExtractor, explorationProb=0.2):
+    def __init__(self, actions, discount, featureExtractor, init_weights = collections.Counter(), explorationProb=0.2):
         self.actions = actions
         self.discount = discount
         self.featureExtractor = featureExtractor
         self.explorationProb = explorationProb
-        self.weights = collections.Counter()
+        self.weights = init_weights
         self.numIters = 0
 
     # Return the Q function associated with the weights and features
@@ -247,7 +319,6 @@ class QLearningAlgorithm(util.RLAlgorithm):
     # You should update the weights using self.getStepSize(); use
     # self.getQ() to compute the current estimate of the parameters.
     def incorporateFeedback(self, state, action, reward, newState):
-        # BEGIN_YOUR_CODE (around 15 lines of code expected)
         if newState == None:
             maxQ = 0
         else:
@@ -256,7 +327,6 @@ class QLearningAlgorithm(util.RLAlgorithm):
         
         for f, v in self.featureExtractor(state, action):
             self.weights[f] = self.weights[f] + self.getStepSize() * r * v
-        # END_YOUR_CODE
 
 # Return a singleton list containing indicator feature for the (state, action)
 # pair.  Provides no generalization.
@@ -274,32 +344,58 @@ def serFeatureExtractor(state,action):
     features = []
     if A == 0:
         featureKey = ('noA',action)
-    else:
+    elif A == 1:
         featureKey = ('A',action)
+    elif A == 2:
+        featureKey = ('pastA',action)        
+    elif A==3:
+        featureKey = ('no_pastA',action)        
+    elif A == 11:
+        featureKey = ('D',action)        
+        
     features.append((featureKey,featureValue))
     
     if B == 0:
         featureKey = ('noB',action)
-    else:
+    elif B==1:
         featureKey = ('B',action)
-    
+    elif B==10:
+        featureKey = ('C',action)
+    elif B==12:
+        featureKey = ('E',action)
+    features.append((featureKey,featureValue))
+        
+    #conjunctive features
+    if A == 2 and B == 1:
+        featureKey = ('pastA','B',action)  
     if A == 1 and B == 1:
-        featureKey = ('A','B',action)  
+        featureKey = ('A','B',action)
+    if A == 1 and B == 10:
+        featureKey = ('A','C',action)
+    if A == 11 and B == 12:
+        featureKey = ('D','E',action)
     features.append((featureKey,featureValue))
     
     return features
+  
     
-# run algorithms
-mdp = ser_fd_features()
-QLearning = QLearningAlgorithm(mdp.actions,mdp.discount(),serFeatureExtractor)
-rew_q = util.simulate(mdp, QLearning,numTrials=100, maxIterations=1000)
-# print rew_q
-
-valueIter = ValueIteration()
-valueIter.solve(mdp)
-print valueIter.V
-
-
+# # run algorithms
+# mdp = sim_fd_features()
+# QLearning = QLearningAlgorithm(mdp.actions,mdp.discount(),serFeatureExtractor)
+# rew_q = util.simulate(mdp, QLearning,numTrials=1000, maxIterations=1000)
+#
+# valueIter = ValueIteration()
+# valueIter.solve(mdp)
+# print valueIter.V
+# print QLearning.weights
+#
+#
+# #run subsequent
+# mdp_phase2 = phase_2_blocking()
+# QLearning_phase2 =  QLearningAlgorithm(mdp.actions,mdp.discount(),serFeatureExtractor,init_weights = QLearning.weights)
+# rew_q2= util.simulate(mdp_phase2, QLearning_phase2,numTrials=25, maxIterations=1000)
+#
+# #get state q values
 # for state in valueIter.pi:
 #     print state
 #     # print valueIter.pi[state]
@@ -312,73 +408,30 @@ print valueIter.V
 #     else:
 #         print actions
 #         print QLearning.getQ(state,actions[0])
-
-##get unique list of features
-features = []
-for state in valueIter.pi:
-    actions = QLearning.actions(state)
-    if len(actions) > 1:
-       for action in actions:
-           for f,v in QLearning.featureExtractor(state,action):
-               features.append(f)
-    else:
-       for f,v in QLearning.featureExtractor(state,action):
-           features.append(f)
-features = set(features)
-for f in features:
-    print f
-    print QLearning.weights[f]
-
-
-# valueIter = ValueIteration()
-# valueIter.solve(daw_mdp)
-# for state in valueIter.pi:
-#     if state[0] < 3:
-#         print state
-#         print QLearning.getAction(state)
-#         print QLearning.getQ(state, 'Left')
-#         print QLearning.getQ(state, 'Right')
 #
-# QLearning.numIters= 1
-# QLearning.incorporateFeedback((2,1),'Left',1,(7,2))
-# util.simulate(daw_mdp, QLearning,numTrials=1, maxIterations=1000)
-# for state in valueIter.pi:
-#     if state[0] < 3:
-#         print state
-#         print QLearning.getAction(state)
-#         print QLearning.getQ(state, 'Left')
-#         print QLearning.getQ(state, 'Right')
-        
-        
-        
-#From 0, left brings you to 1 with high probability, 2 with low probability. Right brings you to 2 with high probability, 1 with low
-# QLearning.explorationProb = 0
-# print  len(valueIter.pi)
-# count = 0.
-# length = 0.
-# for state in valueIter.pi:
-#     if valueIter.pi[state] != QLearning.getAction(state) and state[2] is not None:
-#         count += 1
-#         length += 1
-#     elif valueIter.pi[state] == QLearning.getAction(state) and state[2] is not None:
-#         length += 1
-#
-# print count / length
+# ##get feature values
+# print QLearning_phase2.weights
+# print QLearning_phase2.weights[('C','Go')]
+# print QLearning_phase2.weights[('C','Dont')]
 
-# valueIter = ValueIteration()
-# valueIter.solve(originalMDP)
-# alg = util.FixedRLAlgorithm(valueIter.pi)
-# rew_fixed = util.simulate(newThresholdMDP, alg,numTrials=30000, maxIterations=1000)
-# print float(sum(rew_fixed))/len(rew_fixed)
-# QLearning = QLearningAlgorithm(newThresholdMDP.actions,newThresholdMDP.discount(),identityFeatureExtractor)
-# rew_q = util.simulate(newThresholdMDP, QLearning,numTrials=30000, maxIterations=1000)
-# print float(sum(rew_q))/len(rew_q)
-# mdp = peekingMDP()
-# valueIter = ValueIteration()
-# valueIter.solve(mdp)
-# peekcount = 0.
-# for state in valueIter.pi:
-#     if valueIter.pi[state] == 'Peek':
-#         peekcount += 1
-# print peekcount / len(valueIter.pi)
-# print valueIter.pi
+
+c_go_out = '/Users/ianballard/Dropbox/fd/c_go_ser_fn.txt'
+c_dont_out = '/Users/ianballard/Dropbox/fd/c_dont_ser_fn.txt'
+num_iters = 100
+c_go_weights = []
+c_dont_weights = []
+for i in range(0,num_iters):
+    mdp = ser_fd_features()
+    QLearning = QLearningAlgorithm(mdp.actions,mdp.discount(),serFeatureExtractor)
+    rew_q = util.simulate(mdp, QLearning,numTrials=1000, maxIterations=1000)
+
+    #run subsequent
+    mdp_phase2 = phase_2_blocking()
+    QLearning_phase2 =  QLearningAlgorithm(mdp.actions,mdp.discount(),serFeatureExtractor,init_weights = QLearning.weights)
+    rew_q2= util.simulate(mdp_phase2, QLearning_phase2,numTrials=25, maxIterations=1000)
+    
+    c_go_weights.append(QLearning_phase2.weights[('C','Go')])
+    c_dont_weights.append(QLearning_phase2.weights[('C','Dont')])
+    
+np.savetxt(c_go_out,c_go_weights)    
+np.savetxt(c_dont_out,c_dont_weights)    

@@ -37,23 +37,6 @@ class MDP:
 
 ############################################################
 
-# A simple example of an MDP where states are integers in [-n, +n].
-# and actions involve moving left and right by one position.
-# We get rewarded for going to the right.
-class NumberLineMDP(MDP):
-    def __init__(self, n=5): self.n = n
-    def startState(self): return 0
-    def actions(self, state): return [-1, +1]
-    def succAndProbReward(self, state, action):
-        return [(state, 0.4, 0),
-                (min(max(state + action, -self.n), +self.n), 0.6, state)]
-    def discount(self): return 0.9
-
-############################################################
-
-
-############################################################
-
 # An algorithm that solves an MDP (i.e., computes the optimal
 # policy).
 class MDPAlgorithm:
